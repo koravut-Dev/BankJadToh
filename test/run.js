@@ -7,6 +7,7 @@ const { buildPlan, planLoose } = require('../src/core/planner');
 const { Journal, applyItems } = require('../src/core/journal');
 const { scanSecrets } = require('../src/core/guard');
 const { Vault } = require('../src/core/vault');
+const { Hello } = require('../src/core/hello');
 const { findDuplicates, scanStale } = require('../src/core/cleanup');
 const { search, parseDates } = require('../src/core/search');
 const { planMode, classifyShortcut } = require('../src/core/modes');
@@ -580,5 +581,35 @@ const touch = (name, content = 'x', ageDays = 0) => {
   });
 
   fs.rmSync(tmp, { recursive: true, force: true });
+  await test('windows hello: DK also opens with the Hello-derived key; passphrase and recovery key keep working; disable removes it', async () => {
+    // fake Windows: a deterministic "TPM signature" per challenge, as RSA PKCS#1 v1.5 would give
+    const fake = async (script, env = {}) => {
+      if (env.JT_MODE === 'delete') return 'OK:1';
+      if (!env.JT_MODE) return 'OK:1';
+      return 'SIG:' + require('crypto').createHmac('sha256', 'tpm-private-key').update(env.JT_CHALLENGE).digest('base64');
+    };
+    const h = new Hello(fake);
+    assert.strictEqual(await h.available(), true);
+    assert.strictEqual(await new Hello(async () => { throw new Error('x'); }).available(), false, 'no Hello -> unavailable, no throw');
+    const vdir = path.join(data, 'vault-hello');
+    const v = new Vault(vdir);
+    const { dk, recoveryKey } = v.setup('correct horse battery');
+    assert.strictEqual(v.hasHello(), false);
+    const ch = h.newChallenge();
+    v.enableHello(dk, ch, await h.enroll(ch));
+    const v2 = new Vault(vdir);
+    assert.ok(v2.hasHello(), 'persisted');
+    assert.ok(v2.unlockHello(await h.secret(v2.helloChallenge())).equals(dk), 'Hello secret opens the vault');
+    assert.throws(() => v2.unlockHello('0'.repeat(64)), /wrong passphrase/, 'any other secret is rejected');
+    assert.ok(!fs.readFileSync(path.join(vdir, 'index.json'), 'utf8').includes(dk.toString('base64')), 'DK itself is never stored');
+    v2.rewrap(dk, 'brand new passphrase 1');
+    assert.ok(new Vault(vdir).unlockHello(await h.secret(ch)).equals(dk), 'changing the passphrase keeps Hello working');
+    assert.ok(new Vault(vdir).unlock(recoveryKey, 'recovery').equals(dk), 'recovery key still works');
+    new Vault(vdir).disableHello();
+    assert.strictEqual(new Vault(vdir).hasHello(), false);
+    assert.throws(() => new Vault(vdir).unlockHello('x'), /not enabled/);
+    assert.ok(new Vault(vdir).unlock('brand new passphrase 1').equals(dk), 'passphrase still works after disabling');
+  });
+
   console.log(`\n${passed} passed${process.exitCode ? ', some FAILED' : ''}`);
 })();

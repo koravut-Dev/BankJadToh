@@ -472,15 +472,30 @@ function recoveryDialog(key) {
   });
 }
 
-function vaultUnlockFlow(hint) {
+/** Windows Hello reasons come back as plain codes from the PowerShell bridge. */
+function helloMsg(code) {
+  if (/Cancel|UserPrefersPassword|Timeout|timeout/i.test(code || '')) return t('vh_cancel');
+  if (/NotRepeatable/i.test(code || '')) return t('vh_notrep');
+  return t('vh_fail');
+}
+
+function vaultUnlockFlow(hint, hasHello) {
   return new Promise((resolve) => {
     let mode = 'pass', fails = 0;
     openModal(`<div class="dlg vdlg"><h3>🔓 ${t('vu_title')}</h3><div id="vmsg" class="vmsg"></div>
       <input id="vsec" type="password" placeholder="${esc(t('vu_pass'))}" autocomplete="off">
       <div class="vhint" id="vhint">${hint ? `💡 ${t('vu_hint')}: <b>${esc(hint)}</b>` : `<span class="muted">${t('vu_nohint')}</span>`}</div>
       <a href="#" id="vmode" class="vlink">${t('vu_forgot')}</a>
-      <div class="acts"><button id="vcancel">${t('cancel')}</button><button class="primary" id="vok">${t('vu_title')}</button></div></div>`);
+      <div class="acts">${hasHello ? `<button id="vhello">🪪 ${t('vh_btn')}</button>` : ''}<button id="vcancel">${t('cancel')}</button><button class="primary" id="vok">${t('vu_title')}</button></div></div>`);
     const inp = $('#vsec'); inp.focus();
+    const viaHello = async () => {
+      const b = $('#vhello'); if (!b || b.disabled) return;
+      b.disabled = true; $('#vmsg').textContent = t('vh_wait');
+      const r = await bridge.invoke('vault:helloUnlock');
+      if (r && r.ok) { closeModal(); resolve(true); return; }
+      b.disabled = false; $('#vmsg').textContent = helloMsg(r && r.error); inp.focus();
+    };
+    if (hasHello) { $('#vhello').onclick = viaHello; viaHello(); } // ask Windows right away; the passphrase stays available
     const submit = async () => {
       if (!inp.value) return;
       $('#vok').disabled = true;
@@ -505,11 +520,20 @@ function vaultUnlockFlow(hint) {
 }
 
 function vaultChangeFlow(hint) {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
+    const hi = (await bridge.invoke('vault:helloInfo')) || {};
     openModal(`<div class="dlg vdlg"><h3>💡 ${t('vc_title')}</h3>
       <label class="vf">💡 ${t('vs_hint')}<input id="vh" type="text" maxlength="160" value="${esc(hint || '')}" placeholder="${esc(t('vs_hint_ph'))}"></label><p class="vwarn">⚠️ ${t('vs_hint_warn')}</p>
       <label class="vf">${t('vc_new')}<input id="vp1" type="password" autocomplete="new-password"></label><label class="vf">${t('vs_confirm')}<input id="vp2" type="password" autocomplete="new-password"></label>
+      <div class="vf" style="margin-top:10px"><b>🪪 ${t('vh_title')}</b><div class="muted" style="font-size:12px;margin:4px 0">${hi.available || hi.enabled ? t('vh_desc') : t('vh_unavail')}</div>${hi.available || hi.enabled ? `<button class="sm" id="vhsw">${hi.enabled ? '✓ ' + t('vh_is_on') + ' — ' + t('vh_off') : t('vh_on')}</button>` : ''}</div>
       <div id="vmsg" class="vmsg"></div><div class="acts"><button id="vcancel">${t('cancel')}</button><button class="primary" id="vok">${t('confirm')}</button></div></div>`);
+    const sw = $('#vhsw');
+    if (sw) sw.onclick = async () => {
+      sw.disabled = true; $('#vmsg').textContent = hi.enabled ? '' : t('vh_wait');
+      const r = await bridge.invoke(hi.enabled ? 'vault:helloDisable' : 'vault:helloEnable');
+      if (r && r.error) { sw.disabled = false; $('#vmsg').textContent = helloMsg(r.error); return; }
+      closeModal(); toast(hi.enabled ? t('vh_disabled') : t('vh_enabled'), { ms: 4000 }); resolve(true);
+    };
     $('#vcancel').onclick = () => { closeModal(); resolve(false); };
     $('#vok').onclick = async () => {
       const p1 = $('#vp1').value, p2 = $('#vp2').value;
@@ -526,7 +550,7 @@ async function vaultEnsureUnlocked() {
   const st = await call('vault:status');
   if (!st) return false;
   if (!st.initialized) { if (!(await vaultSetupFlow())) return false; }
-  else if (!st.unlocked) { if (!(await vaultUnlockFlow(st.hint))) return false; }
+  else if (!st.unlocked) { if (!(await vaultUnlockFlow(st.hint, st.hello))) return false; }
   state.gd.vst = await call('vault:status');
   gdRerender();
   return true;

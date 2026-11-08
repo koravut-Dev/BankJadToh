@@ -7,6 +7,7 @@ const { buildPlan, planLoose } = require('../core/planner');
 const { Journal, applyItems } = require('../core/journal');
 const { scanSecrets } = require('../core/guard');
 const { Vault } = require('../core/vault');
+const { Hello } = require('../core/hello');
 const { scanStale, scanDeadShortcuts, findDuplicates } = require('../core/cleanup');
 const { searchDetailed, stats: searchStats, buildIndex } = require('../core/search');
 const { MODES, GROUPS, HIDDEN_DIR, classifyShortcut, planMode } = require('../core/modes');
@@ -57,7 +58,8 @@ function allowThumbs(paths) { if (thumbAllowed.size > 8000) thumbAllowed.clear()
 /** Icon of the program a shortcut launches (not the generic "shortcut" icon). */
 /* ---------- vault session: the unlocked key lives only in memory and expires ---------- */
 
-let vaultKey = null, vaultUntil = 0, vaultFails = 0;
+let vaultKey = null, vaultUntil = 0, vaultFails = 0, helloBusy = false;
+const hello = new Hello();
 const viewDirs = new Set();
 const TESTING = !!process.env.JADTOH_TEST_DIR;
 const VAULT_IDLE_MS = 5 * 60 * 1000, VIEW_MS = TESTING ? 2500 : 3 * 60 * 1000;
@@ -847,8 +849,33 @@ function registerIpc() {
   handle('vault:status', () => ({
     initialized: vault.isInitialized(), hint: vault.hint(), unlocked: vaultUnlocked(),
     expiresIn: vaultUnlocked() ? Math.max(0, Math.round((vaultUntil - Date.now()) / 1000)) : 0,
-    legacy: vault.list().filter((e) => e.v !== 2).length, count: vault.list().length,
+    legacy: vault.list().filter((e) => e.v !== 2).length, count: vault.list().length, hello: vault.hasHello(),
   }));
+  handle('vault:helloInfo', async () => ({ available: await hello.available(), enabled: vault.hasHello() }));
+  // Windows Hello shortcut: needs the vault already unlocked (so the passphrase/recovery key stay the root of trust).
+  handle('vault:helloEnable', async () => {
+    if (helloBusy) throw new Error('busy');
+    const dk = vaultNeedKey();
+    helloBusy = true;
+    try {
+      const challenge = hello.newChallenge();
+      const secret = await hello.enroll(challenge);
+      vaultNeedKey(); // still unlocked after the Windows prompts?
+      vault.enableHello(dk, challenge, secret);
+      return true;
+    } finally { helloBusy = false; }
+  });
+  handle('vault:helloUnlock', async () => {
+    if (!vault.hasHello()) throw new Error('NotEnabled');
+    if (helloBusy) throw new Error('busy');
+    helloBusy = true;
+    try {
+      const dk = vault.unlockHello(await hello.secret(vault.helloChallenge()));
+      vaultLock(); vaultKey = dk; vaultTouch(); vaultFails = 0;
+      return { ok: true };
+    } finally { helloBusy = false; }
+  });
+  handle('vault:helloDisable', async () => { vault.disableHello(); await hello.remove(); return true; });
   handle('vault:setup', ({ pass, hint }) => {
     const r = vault.setup(pass, hint);
     vaultKey = r.dk; vaultTouch(); vaultFails = 0;

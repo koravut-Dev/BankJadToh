@@ -123,6 +123,20 @@ class Vault {
     return mode === 'recovery' ? unwrapKey(this.meta.wrapRec, normRecovery(secret)) : unwrapKey(this.meta.wrapPass, String(secret || ''));
   }
 
+  /* ----- Windows Hello shortcut: the DK is also wrapped by a key only Windows Hello can produce ----- */
+  hasHello() { return !!(this.meta && this.meta.wrapHello); }
+  helloChallenge() { return this.hasHello() ? this.meta.wrapHello.challenge : null; }
+  enableHello(dk, challenge, secret) {
+    if (!this.isInitialized()) throw new Error('not set up');
+    this.meta.wrapHello = { ...wrapKey(dk, secret), challenge };
+    this._save();
+  }
+  disableHello() { if (this.meta) { delete this.meta.wrapHello; this._save(); } }
+  unlockHello(secret) {
+    if (!this.hasHello()) throw new Error('windows hello is not enabled');
+    return unwrapKey(this.meta.wrapHello, secret);
+  }
+
   setHint(hint) { this.meta.hint = String(hint || '').slice(0, 160); this._save(); }
 
   /** Change the passphrase (needs the unlocked DK). The recovery key keeps working. */
