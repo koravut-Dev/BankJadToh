@@ -1,0 +1,108 @@
+/* Seasonal themes. Shared by the app, the notification popup, the widget and the drop pad.
+   --accent/--accent2  : main colours (buttons, highlights)
+   --n1/--n2/--nb/--glow : the dark "glass" used by the popup and the widget
+   --tint              : washes the app background */
+html { --n1: #1e2742; --n2: #101628; --nb: rgba(120,150,255,.38); --glow: rgba(91,140,255,.55); --ga: #5b8cff; --gb: #7ee0b8; --gc: #ffbe5c; --sparkle: #cfe0ff; }
+
+html[data-theme=loy] { --accent: #e07a1f; --accent2: #2fb7c9; --warn: #ffd166; --tint: #f2a33a;
+  --n1: #1b2a55; --n2: #0b1330; --nb: rgba(255,190,90,.5); --glow: rgba(255,170,60,.55); --ga: #ffb347; --gb: #4fd1e0; --gc: #ff7a59; --sparkle: #ffe2a8; }
+html[data-theme=xmas] { --accent: #d4373b; --accent2: #2a9d63; --warn: #ffd166; --tint: #d4373b;
+  --n1: #1d3a2e; --n2: #0d1f18; --nb: rgba(255,120,120,.5); --glow: rgba(230,70,70,.5); --ga: #ff5a5f; --gb: #46c987; --gc: #ffd166; --sparkle: #ffffff; }
+html[data-theme=newyear] { --accent: #b8860b; --accent2: #7c5cff; --warn: #ffd166; --tint: #c9a227;
+  --n1: #1f1a38; --n2: #0c0a1c; --nb: rgba(255,210,100,.55); --glow: rgba(255,200,80,.55); --ga: #ffd24d; --gb: #a78bff; --gc: #ff7ac6; --sparkle: #fff3c4; }
+html[data-theme=valentine] { --accent: #e0457b; --accent2: #ff8fb1; --warn: #ffd1dc; --tint: #ff7aa2;
+  --n1: #42182f; --n2: #1f0b19; --nb: rgba(255,140,175,.55); --glow: rgba(255,100,150,.55); --ga: #ff6b9d; --gb: #ffb3c8; --gc: #ffd166; --sparkle: #ffd3e0; }
+html[data-theme=songkran] { --accent: #1597d6; --accent2: #22cfb4; --warn: #ffd23f; --tint: #2bb7e8;
+  --n1: #0f3a55; --n2: #08202f; --nb: rgba(110,220,255,.55); --glow: rgba(60,200,255,.55); --ga: #38bdf8; --gb: #34e0c0; --gc: #ffd23f; --sparkle: #d6f6ff; }
+html[data-theme=halloween] { --accent: #ee7413; --accent2: #8b5cf6; --warn: #ffb347; --tint: #ff8a1f;
+  --n1: #2a1740; --n2: #120a1e; --nb: rgba(255,150,60,.55); --glow: rgba(255,120,30,.5); --ga: #ff8a1f; --gb: #a78bfa; --gc: #7ee05a; --sparkle: #ffd9a8; }
+
+/* Classic theme + live weather */
+html[data-wx=sun] { --accent: #e8890c; --accent2: #38a8f0; --warn: #ffd166; --tint: #ffc857; --n1: #1f4a7a; --n2: #0c2340; --nb: rgba(255,210,120,.5); --glow: rgba(255,190,70,.5); --ga: #ffc857; --gb: #5cc8ff; --gc: #ff9d4d; --sparkle: #fff1c2; }
+html[data-wx=night] { --accent: #6366f1; --accent2: #a78bfa; --warn: #fbcfe8; --tint: #6366f1; --n1: #181b4a; --n2: #090b24; --nb: rgba(160,170,255,.45); --glow: rgba(120,130,255,.5); --ga: #8b93ff; --gb: #c4b5fd; --gc: #f9a8d4; --sparkle: #e0e4ff; }
+html[data-wx=cloud] { --accent: #5f7fa6; --accent2: #8fb4d9; --warn: #e2e8f0; --tint: #8aa4c0; --n1: #2b3a4f; --n2: #141c29; --nb: rgba(170,200,230,.4); --glow: rgba(130,170,220,.4); --ga: #8fb4d9; --gb: #b7d1ea; --gc: #e2e8f0; --sparkle: #e6eef8; }
+html[data-wx=rain] { --accent: #2f7fd6; --accent2: #38bdf8; --warn: #94a3b8; --tint: #4b8fd8; --n1: #16304f; --n2: #0a1626; --nb: rgba(110,170,255,.45); --glow: rgba(70,150,255,.45); --ga: #4da3ff; --gb: #38d0ee; --gc: #94a3b8; --sparkle: #cfe6ff; }
+html[data-wx=storm] { --accent: #7c4dff; --accent2: #e6b800; --warn: #facc15; --tint: #7c5cff; --n1: #231a3d; --n2: #0d0a18; --nb: rgba(250,210,80,.5); --glow: rgba(250,200,60,.45); --ga: #a78bfa; --gb: #facc15; --gc: #60a5fa; --sparkle: #fff3b0; }
+html[data-wx=snow] { --accent: #4a90c8; --accent2: #7cc4ee; --warn: #bae6fd; --tint: #a5d3f2; --n1: #1f3a52; --n2: #0e1b29; --nb: rgba(190,225,255,.5); --glow: rgba(160,210,255,.45); --ga: #9bd1f5; --gb: #e0f2fe; --gc: #bae6fd; --sparkle: #ffffff; }
+html[data-wx=fog] { --accent: #7d8a99; --accent2: #aab6c2; --warn: #cbd5e1; --tint: #a3acb7; --n1: #2c3138; --n2: #16191e; --nb: rgba(200,210,220,.4); --glow: rgba(190,200,215,.35); --ga: #b0bac5; --gb: #d3dae1; --gc: #cbd5e1; --sparkle: #eef1f4; }
+html[data-wx=storm] #fx::before { content: ""; position: absolute; inset: 0; background: #fff; opacity: 0; animation: fx-flash 11s steps(1) infinite; }
+@keyframes fx-flash { 0%, 60%, 63%, 100% { opacity: 0; } 61% { opacity: .22; } 62% { opacity: .05; } 62.6% { opacity: .18; } }
+
+/* main app: a light wash of the theme colour over the background (dark is the default scheme, light under the media query) */
+html[data-theme]:not([data-theme=default]), html[data-wx] { --bg: color-mix(in srgb, var(--tint) 13%, #0f1420); }
+@media (prefers-color-scheme: light) { html[data-theme]:not([data-theme=default]), html[data-wx] { --bg: color-mix(in srgb, var(--tint) 11%, #f6f7fb); } }
+html[data-theme]:not([data-theme=default]) aside, html[data-wx] aside { border-top: 4px solid transparent; border-image: linear-gradient(90deg, var(--accent), var(--accent2)) 1; }
+html[data-theme]:not([data-theme=default]) nav button.on, html[data-wx] nav button.on { background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, var(--accent2))); box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent); }
+html[data-theme]:not([data-theme=default]) button.primary, html[data-wx] button.primary { background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 65%, var(--accent2))); border-color: transparent; }
+
+/* decoration on the logo (a Santa hat, a krathong …) */
+.brand { position: relative; }
+.brand .deco { position: absolute; left: 0; top: -8px; font-size: 20px; transform: rotate(-18deg); filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); animation: deco-bob 3.2s ease-in-out infinite; pointer-events: none; }
+@keyframes deco-bob { 0%, 100% { transform: rotate(-18deg) translateY(0); } 50% { transform: rotate(-12deg) translateY(-2px); } }
+
+/* floating particles */
+#fx { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 45; }
+#fx i { position: absolute; left: var(--x); top: 0; font-style: normal; font-size: var(--s); line-height: 1; opacity: 0; will-change: transform, opacity; animation: var(--m) var(--d) linear var(--dl) infinite; }
+@keyframes fx-fall { 0% { transform: translate3d(0, -10vh, 0) rotate(0); opacity: 0; } 8% { opacity: var(--o); } 50% { transform: translate3d(calc(var(--sw) * -1), 55vh, 0) rotate(160deg); } 100% { transform: translate3d(var(--sw), 108vh, 0) rotate(340deg); opacity: var(--o); } }
+@keyframes fx-rise { 0% { transform: translate3d(0, 108vh, 0) scale(.8); opacity: 0; } 12% { opacity: var(--o); } 50% { transform: translate3d(var(--sw), 50vh, 0) scale(1); } 100% { transform: translate3d(calc(var(--sw) * -1), -12vh, 0) scale(1.05); opacity: 0; } }
+@keyframes fx-twinkle { 0%, 100% { transform: translate3d(0, var(--y), 0) scale(.3); opacity: 0; } 50% { transform: translate3d(0, var(--y), 0) scale(1.1); opacity: var(--o); } }
+@keyframes fx-drift { 0% { transform: translate3d(-12vw, var(--y), 0); opacity: 0; } 10% { opacity: var(--o); } 50% { transform: translate3d(55vw, calc(var(--y) + 14px), 0); } 100% { transform: translate3d(112vw, var(--y), 0); opacity: var(--o); } }
+@media (prefers-reduced-motion: reduce) { #fx { display: none; } .brand .deco { animation: none; } }
+
+/* drawn scenes */
+.scene { position: absolute; pointer-events: none; overflow: hidden; z-index: 0; --sceneW: #fff; }
+.scene svg { display: block; width: 100%; height: 100%; }
+.scene .sa { fill: var(--ga); opacity: .38; } .scene .sb { fill: var(--gb); opacity: .5; } .scene .sc { fill: var(--gc); } .scene .sd { fill: var(--n2); opacity: .92; } .scene .sw { fill: var(--sceneW); }
+.scene .sk { fill: none; stroke: var(--sparkle); stroke-width: 2; stroke-linecap: round; }
+.scene * { transform-box: fill-box; }
+.scene .bob { animation: sc-bob 3.4s ease-in-out infinite; transform-origin: center bottom; }
+.scene .flame { animation: sc-flame 1.1s ease-in-out infinite alternate; }
+.scene .fly { animation: sc-fly 6s ease-in-out infinite; } .scene .fly.f2 { animation-duration: 7.5s; animation-delay: -2s; } .scene .fly.f3 { animation-duration: 5s; animation-delay: -3s; }
+.scene .tw { animation: sc-tw 2.6s ease-in-out infinite; } .scene .tw:nth-child(odd) { animation-delay: -1.1s; }
+.scene .burst { transform-origin: center; animation: sc-burst 3.2s ease-out infinite; opacity: 0; } .scene .burst.c2 { filter: hue-rotate(90deg); } .scene .burst.c3 { filter: hue-rotate(200deg); }
+.scene .spin { animation: sc-spin 40s linear infinite; }
+.scene .rainl { stroke-dasharray: 6 8; animation: sc-rain .7s linear infinite; }
+.scene .bolt { animation: sc-bolt 5s steps(1) infinite; }
+@keyframes sc-bob { 50% { transform: translateY(-3px) rotate(2deg); } }
+@keyframes sc-flame { to { transform: scale(1.35); opacity: .75; } }
+@keyframes sc-fly { 50% { transform: translate(14px, -8px); } }
+@keyframes sc-tw { 50% { opacity: .25; } }
+@keyframes sc-burst { 0% { transform: scale(.2); opacity: 0; } 15% { opacity: 1; } 80% { opacity: .5; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes sc-spin { to { transform: rotate(360deg); } }
+@keyframes sc-rain { to { stroke-dashoffset: -28; } }
+@keyframes sc-bolt { 0%, 62%, 66%, 100% { opacity: .15; } 63%, 65% { opacity: 1; } }
+aside { position: relative; overflow: hidden; }
+aside > nav, aside > .side-foot, aside > .brand { position: relative; z-index: 1; }
+aside .scene.s-aside { left: 0; right: 0; bottom: 54px; height: 130px; opacity: .95; -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%); }
+@media (prefers-color-scheme: light) { aside .scene { --sceneW: color-mix(in srgb, var(--accent) 30%, #fff); } aside .scene .sd { opacity: .3; } }
+.w > .scene.s-widget { left: 0; right: 0; bottom: 0; height: 104px; opacity: .85; -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%); }
+.w.col > .scene.s-widget { display: none; }
+.scene ~ *:not(.hi):not(.bar):not(.deco) { position: relative; z-index: 1; }
+.card > .scene.s-notice { left: 0; right: 0; bottom: 0; height: 100px; opacity: .7; z-index: -1; -webkit-mask-image: linear-gradient(transparent, #000 60%); mask-image: linear-gradient(transparent, #000 60%); }
+
+/* shapes: soft drawn particles */
+#fx i.sh { width: var(--s); height: var(--s); background: var(--shc, var(--sparkle)); -webkit-mask: var(--mask) center / contain no-repeat; mask: var(--mask) center / contain no-repeat; }
+#fx i.sh-flake { --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 2V22M3.3 7L20.7 17M3.3 17L20.7 7'/%3E%3C/g%3E%3C/svg%3E"); }
+#fx i.sh-spark { --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z'/%3E%3C/svg%3E"); --shc: var(--sparkle); }
+#fx i.sh-heart { --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C-4 9 4 -1 12 6C20 -1 28 9 12 21Z'/%3E%3C/svg%3E"); --shc: var(--ga); }
+#fx i.sh-bat { --mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 14C10 8 6 6 0 8C3 9 3 12 4 14C6 12 8 12 10 15L12 17L14 15C16 12 18 12 20 14C21 12 21 9 24 8C18 6 14 8 12 14Z'/%3E%3C/svg%3E"); --shc: var(--ga); width: calc(var(--s) * 1.5); }
+#fx i.sh-bubble { background: radial-gradient(circle at 32% 30%, rgba(255,255,255,.95), rgba(255,255,255,.12) 42%, color-mix(in srgb, var(--ga) 35%, transparent)); border: 1px solid rgba(255,255,255,.55); border-radius: 50%; -webkit-mask: none; mask: none; }
+#fx i.sh-lantern { border-radius: 50%; -webkit-mask: none; mask: none; width: calc(var(--s) * 1.1); height: calc(var(--s) * 1.1); background: radial-gradient(circle, #fff6d0 0, var(--ga) 32%, transparent 70%); box-shadow: 0 0 14px 3px color-mix(in srgb, var(--ga) 55%, transparent); }
+#fx i.sh-puff { -webkit-mask: none; mask: none; border-radius: 50%; width: calc(var(--s) * 2.4); height: calc(var(--s) * 1.1); background: rgba(255,255,255,.4); filter: blur(7px); }
+#fx i.sh-streak { -webkit-mask: none; mask: none; width: 2px; height: calc(var(--s) * 1.8); border-radius: 2px; background: linear-gradient(transparent, var(--sparkle)); rotate: 14deg; opacity: .8; }
+@keyframes fx-rain { 0% { transform: translate3d(0, -12vh, 0); opacity: 0; } 10% { opacity: var(--o); } 100% { transform: translate3d(-9vh, 112vh, 0); opacity: var(--o); } }
+
+/* ---------- Weather-driven sky (sky.js): scene behind, translucent glass UI above ---------- */
+#sky { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+html[data-sky] { background: var(--bg); }
+html[data-sky] body { background: transparent; }
+/* a soft scrim keeps headings readable over any sky; panels are glass with enough opacity to hold text contrast */
+html[data-sky] main { background: linear-gradient(color-mix(in srgb, var(--bg) 52%, transparent), color-mix(in srgb, var(--bg) 30%, transparent)); }
+html[data-sky] aside { background: color-mix(in srgb, var(--panel) 74%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15); }
+html[data-sky] .card, html[data-sky] .dlg { background: color-mix(in srgb, var(--panel) 82%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html[data-sky] .dlg { background: color-mix(in srgb, var(--panel) 92%, transparent); }
+html[data-sky] .card, html[data-sky] aside { transition: background-color 1.2s ease; }
+@media (prefers-reduced-transparency: reduce) {
+  html[data-sky] aside, html[data-sky] .card, html[data-sky] .dlg { background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  html[data-sky] main { background: none; }
+}

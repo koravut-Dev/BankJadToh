@@ -1,0 +1,10 @@
+{
+  "semgrep": {
+    "fixed": 3,
+    "falsePositives": 1,
+    "details": [
+      "vault.js x3: AES-GCM decryption without a fixed auth-tag length (a shortened tag was accepted). FIXED: authTagLength 16 + explicit length check; test added.",
+      "scripts/security-audit.js: child_process with a function argument. FALSE POSITIVE: developer script, called only with fixed commands, not shipped in the app."
+    ]
+  }
+}

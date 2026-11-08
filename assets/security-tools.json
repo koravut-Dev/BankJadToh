@@ -1,0 +1,68 @@
+{
+  "rows": [
+    {
+      "id": "semgrep",
+      "tool": "Semgrep OSS (p/javascript, p/nodejs, p/security-audit)",
+      "version": "1.184.0",
+      "at": "2026-11-06T01:50:15.361Z",
+      "status": "pass",
+      "data": {
+        "rules": 90,
+        "files": 48,
+        "findings": 1,
+        "falsePositives": 1,
+        "fixed": 3
+      }
+    },
+    {
+      "id": "osv",
+      "tool": "OSV-Scanner",
+      "version": "2.7.0",
+      "at": "2026-11-06T01:50:17.258Z",
+      "status": "warn",
+      "data": {
+        "packages": 272,
+        "findings": 2,
+        "items": [
+          "minimatch@10.2.6",
+          "minimatch@9.0.9"
+        ],
+        "note": "build tools only; not shipped in the app"
+      }
+    },
+    {
+      "id": "gitleaks",
+      "tool": "Gitleaks",
+      "version": "8.30.1",
+      "at": "2026-11-06T01:50:20.001Z",
+      "status": "pass",
+      "data": {
+        "leaks": 0,
+        "scanned": "86829045 bytes"
+      }
+    },
+    {
+      "id": "electronegativity",
+      "tool": "Electronegativity (Doyensec)",
+      "version": "1.10.3",
+      "at": "2026-11-06T01:50:26.595Z",
+      "status": "pass",
+      "data": {
+        "errors": 0,
+        "warnings": 0,
+        "notes": 9
+      }
+    },
+    {
+      "id": "fuses",
+      "tool": "Electron fuses of the built app (@electron/fuses)",
+      "version": "",
+      "at": "2026-11-06T01:50:29.069Z",
+      "status": "pass",
+      "data": {
+        "on": 6,
+        "of": 6
+      }
+    }
+  ]
+}

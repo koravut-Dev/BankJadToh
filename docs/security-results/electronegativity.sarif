@@ -1,0 +1,256 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.1.0",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "version": "1.10.3",
+          "informationUri": "https://github.com/doyensec/electronegativity",
+          "name": "Electronegativity",
+          "fullName": "Electronegativity is a tool to identify misconfigurations and security anti-patterns in Electron applications",
+          "rules": [
+            {
+              "id": "AVAILABLE_SECURITY_FIXES_GLOBAL_CHECK",
+              "fullDescription": {
+                "text": "Check if there are security patches applied in between the Electron version used and the latest"
+              },
+              "properties": {
+                "category": "Security"
+              },
+              "helpUri": "https://github.com/doyensec/electronegativity/wiki/AVAILABLE_SECURITY_FIXES_GLOBAL_CHECK",
+              "help": {
+                "text": "https://github.com/doyensec/electronegativity/wiki/AVAILABLE_SECURITY_FIXES_GLOBAL_CHECK"
+              }
+            },
+            {
+              "id": "CSP_GLOBAL_CHECK",
+              "fullDescription": {
+                "text": "One or more CSP directives detected seems to be vulnerable"
+              },
+              "properties": {
+                "category": "Security"
+              },
+              "helpUri": "https://github.com/doyensec/electronegativity/wiki/CSP_GLOBAL_CHECK",
+              "help": {
+                "text": "https://github.com/doyensec/electronegativity/wiki/CSP_GLOBAL_CHECK"
+              }
+            },
+            {
+              "id": "PRELOAD_JS_CHECK",
+              "fullDescription": {
+                "text": "Review the use of preload scripts"
+              },
+              "properties": {
+                "category": "Security"
+              },
+              "helpUri": "https://github.com/doyensec/electronegativity/wiki/PRELOAD_JS_CHECK",
+              "help": {
+                "text": "https://github.com/doyensec/electronegativity/wiki/PRELOAD_JS_CHECK"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "AVAILABLE_SECURITY_FIXES_GLOBAL_CHECK",
+          "level": "note",
+          "message": {
+            "text": "Check if there are security patches applied in between the Electron version used and the latest"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "charLength": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CSP_GLOBAL_CHECK",
+          "level": "note",
+          "message": {
+            "text": "One or more CSP directives detected seems to be vulnerable"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\renderer\\drop.html"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "charLength": 220
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CSP_GLOBAL_CHECK",
+          "level": "note",
+          "message": {
+            "text": "One or more CSP directives detected seems to be vulnerable"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\renderer\\index.html"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "charLength": 220
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CSP_GLOBAL_CHECK",
+          "level": "note",
+          "message": {
+            "text": "One or more CSP directives detected seems to be vulnerable"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\renderer\\notify.html"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "charLength": 220
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CSP_GLOBAL_CHECK",
+          "level": "note",
+          "message": {
+            "text": "One or more CSP directives detected seems to be vulnerable"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\renderer\\widget.html"
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "charLength": 220
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PRELOAD_JS_CHECK",
+          "level": "note",
+          "message": {
+            "text": "Review the use of preload scripts"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\main\\main.js"
+                },
+                "region": {
+                  "startLine": 300,
+                  "startColumn": 23,
+                  "charLength": 190
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PRELOAD_JS_CHECK",
+          "level": "note",
+          "message": {
+            "text": "Review the use of preload scripts"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\main\\main.js"
+                },
+                "region": {
+                  "startLine": 326,
+                  "startColumn": 23,
+                  "charLength": 190
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PRELOAD_JS_CHECK",
+          "level": "note",
+          "message": {
+            "text": "Review the use of preload scripts"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\main\\main.js"
+                },
+                "region": {
+                  "startLine": 358,
+                  "startColumn": 23,
+                  "charLength": 161
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "PRELOAD_JS_CHECK",
+          "level": "note",
+          "message": {
+            "text": "Review the use of preload scripts"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src\\main\\main.js"
+                },
+                "region": {
+                  "startLine": 380,
+                  "startColumn": 23,
+                  "charLength": 161
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "invocations": [
+        {
+          "workingDirectory": {
+            "uri": "file:///C:\\Users\\USER\\AppData\\Local\\Temp\\jt-egy-90f7ec88"
+          },
+          "executionSuccessful": true
+        }
+      ]
+    }
+  ]
+}

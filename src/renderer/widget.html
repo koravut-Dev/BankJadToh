@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="th" data-fx="widget">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Bank JadToh Widget</title>
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="widget.css">
+</head>
+<body>
+  <div class="w" id="w">
+    <header id="hd">
+      <div class="logo">🗂️<span class="dc" id="dc"></span></div>
+      <div class="ttl"><b id="t1"></b><small id="t2"></small></div>
+      <div class="cnt" title=""><div><b id="n1">0</b><small id="n2"></small></div></div>
+          </header>
+    <ul id="list"></ul><div class="empty" id="empty" hidden><span>🗂️</span><div id="emptyT"></div></div>
+    <div class="acts" id="acts">
+      <button class="pri" id="open"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span id="openT"></span></button>
+      <button class="gh" id="fold"><svg id="foldI" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg><span id="foldT"></span></button>
+      <button class="gh" id="close"><svg viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a3 3 0 004.2 4.2M9.9 5.1A10.7 10.7 0 0112 5c5 0 9 4.5 10 7a11.5 11.5 0 01-3.2 4.3M6.2 6.2A11.5 11.5 0 002 12c1 2.5 5 7 10 7a10 10 0 004.1-.9"/></svg><span id="closeT"></span></button>
+    </div>
+    <footer id="hi"></footer>
+  </div>
+  <script src="scenes.js"></script>
+  <script src="theme.js"></script>
+  <script src="widget.js"></script>
+</body>
+</html>

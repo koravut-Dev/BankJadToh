@@ -1,0 +1,49 @@
+# Security checks that run on GitHub itself, so anyone can read the results and re-run them.
+# NOTE: written offline; before publishing, check each action's latest release and pin versions (ideally by commit SHA).
+name: security
+on:
+  push: { branches: [main] }
+  pull_request:
+  schedule:
+    - cron: '23 3 * * 1'   # weekly: new advisories appear even when the code did not change
+permissions:
+  contents: read
+jobs:
+  codeql:
+    runs-on: ubuntu-latest
+    permissions: { contents: read, security-events: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with: { languages: javascript-typescript }
+      - uses: github/codeql-action/analyze@v3
+  semgrep:
+    runs-on: ubuntu-latest
+    container: { image: semgrep/semgrep }
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep scan --config p/javascript --config p/nodejs --config p/security-audit --metrics off --error src scripts test
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=low     # what ships in the app: must be clean
+      - run: npm audit --audit-level=high || true       # build tooling: reported, not blocking
+  tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: npm ci
+      - run: node test/run.js

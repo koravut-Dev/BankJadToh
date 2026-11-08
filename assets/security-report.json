@@ -1,0 +1,248 @@
+{
+  "app": "jadtoh",
+  "version": "0.1.0",
+  "generated": "2026-11-06T01:51:17.503Z",
+  "node": "v24.22.1",
+  "platform": "win32 10.0.26300",
+  "rows": [
+    {
+      "at": "2026-11-06T01:50:35.908Z",
+      "id": "deps_prod",
+      "tool": "npm audit",
+      "version": "11.19.1",
+      "status": "pass",
+      "data": {
+        "scanned": 288,
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:38.610Z",
+      "id": "deps_all",
+      "tool": "npm audit",
+      "version": "11.19.1",
+      "status": "warn",
+      "data": {
+        "scanned": 288,
+        "info": 0,
+        "low": 0,
+        "moderate": 6,
+        "high": 0,
+        "critical": 0,
+        "total": 6,
+        "note": "build tools only (electron-builder → minimatch); not shipped in the app"
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:40.618Z",
+      "id": "tests",
+      "tool": "node test/run.js",
+      "version": "v24.22.1",
+      "status": "pass",
+      "data": {
+        "passed": 33,
+        "failed": 0
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:40.628Z",
+      "id": "electron",
+      "tool": "static source check (scripts/security-audit.js)",
+      "version": "electron 45.2.3",
+      "status": "pass",
+      "data": {
+        "windows": 5,
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegrationOff": true,
+        "noInsecureFlags": true,
+        "cspOnEveryPage": true,
+        "strictCsp": true,
+        "cspNoRemoteOrEval": true,
+        "blocksNavigation": true,
+        "deniesPermissions": true,
+        "noEval": true,
+        "pageCount": 4
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:40.642Z",
+      "id": "network",
+      "tool": "source scan for URLs / fetch / http",
+      "version": "-",
+      "status": "pass",
+      "data": {
+        "addresses": [
+          {
+            "url": "https://api.anthropic.com",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://api.openai.com/v1",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://generativelanguage.googleapis.com",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://openrouter.ai/api/v1",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://api.deepseek.com/v1",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://api.groq.com/openai/v1",
+            "file": "src/core/llm.js"
+          },
+          {
+            "url": "https://geocoding-api.open-meteo.com/v1/search",
+            "file": "src/core/weather.js"
+          },
+          {
+            "url": "https://api.open-meteo.com/v1/forecast",
+            "file": "src/core/weather.js"
+          },
+          {
+            "url": "http://example.com",
+            "file": "src/main/main.js"
+          },
+          {
+            "url": "https://example.com/v1",
+            "file": "src/main/main.js"
+          }
+        ],
+        "telemetry": "found"
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:40.647Z",
+      "id": "spawn",
+      "tool": "source scan for child processes",
+      "version": "-",
+      "status": "pass",
+      "data": {
+        "programs": [
+          "attrib",
+          "powershell.exe",
+          "reg",
+          "tasklist"
+        ]
+      }
+    },
+    {
+      "at": "2026-11-06T01:50:40.962Z",
+      "id": "secrets",
+      "tool": "regex scan (5 key formats)",
+      "version": "-",
+      "status": "pass",
+      "data": {
+        "fixtures": 2,
+        "files": 86,
+        "hits": []
+      }
+    },
+    {
+      "at": "2026-11-06T01:51:13.793Z",
+      "id": "hostile",
+      "tool": "attack-string test in the real app (Electron)",
+      "version": "electron 45.2.3",
+      "status": "pass",
+      "data": {
+        "pages": 14,
+        "injected": 0,
+        "refused": 6,
+        "ipcTried": 6,
+        "controls": true
+      }
+    },
+    {
+      "at": "2026-11-06T01:51:17.503Z",
+      "id": "defender",
+      "tool": "Microsoft Defender",
+      "version": "4.18.26100.4 / signatures 1.463.140.0",
+      "status": "pass",
+      "data": {
+        "scanned": "src/ + assets/",
+        "seconds": 4,
+        "threats": []
+      }
+    },
+    {
+      "id": "semgrep",
+      "tool": "Semgrep OSS (p/javascript, p/nodejs, p/security-audit)",
+      "version": "1.184.0",
+      "at": "2026-11-06T01:50:15.361Z",
+      "status": "pass",
+      "data": {
+        "rules": 90,
+        "files": 48,
+        "findings": 1,
+        "falsePositives": 1,
+        "fixed": 3
+      },
+      "external": true
+    },
+    {
+      "id": "osv",
+      "tool": "OSV-Scanner",
+      "version": "2.7.0",
+      "at": "2026-11-06T01:50:17.258Z",
+      "status": "warn",
+      "data": {
+        "packages": 272,
+        "findings": 2,
+        "items": [
+          "minimatch@10.2.6",
+          "minimatch@9.0.9"
+        ],
+        "note": "build tools only; not shipped in the app"
+      },
+      "external": true
+    },
+    {
+      "id": "gitleaks",
+      "tool": "Gitleaks",
+      "version": "8.30.1",
+      "at": "2026-11-06T01:50:20.001Z",
+      "status": "pass",
+      "data": {
+        "leaks": 0,
+        "scanned": "86829045 bytes"
+      },
+      "external": true
+    },
+    {
+      "id": "electronegativity",
+      "tool": "Electronegativity (Doyensec)",
+      "version": "1.10.3",
+      "at": "2026-11-06T01:50:26.595Z",
+      "status": "pass",
+      "data": {
+        "errors": 0,
+        "warnings": 0,
+        "notes": 9
+      },
+      "external": true
+    },
+    {
+      "id": "fuses",
+      "tool": "Electron fuses of the built app (@electron/fuses)",
+      "version": "",
+      "at": "2026-11-06T01:50:29.069Z",
+      "status": "pass",
+      "data": {
+        "on": 6,
+        "of": 6
+      },
+      "external": true
+    }
+  ]
+}
